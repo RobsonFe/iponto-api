@@ -1,10 +1,10 @@
-export class CompanyEntity {
-    id: number;
+export class EmployeeEntity {
+    id: string;
     nome: string;
-    cnpj: string;
+    cpf: string;
     email: string;
     phone: string;
-    site?: string;
+    linkedin?: string;
     endereco: {
         rua: string;
         numero?: string;
