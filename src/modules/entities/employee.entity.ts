@@ -1,10 +1,35 @@
+import {
+    Column,
+    CreateDateColumn,
+    Entity,
+    Generated,
+    ManyToOne,
+    PrimaryColumn,
+    UpdateDateColumn,
+} from 'typeorm';
+import { CompanyEntity } from './company.entity';
+
+@Entity({ name: 'employee' })
 export class EmployeeEntity {
+    @PrimaryColumn('uuid')
+    @Generated('uuid')
     id: string;
+    @Column({ type: 'varchar', length: 255 })
     nome: string;
+    @Column({ type: 'varchar', unique: true, length: 14 })
     cpf: string;
+    @Column({
+        name: 'employee_email',
+        type: 'varchar',
+        unique: true,
+        length: 255,
+    })
     email: string;
+    @Column({ type: 'varchar', length: 20 })
     phone: string;
+    @Column({ type: 'varchar', length: 255, nullable: true })
     linkedin?: string;
+    @Column({ type: 'json' })
     endereco: {
         rua: string;
         numero?: string;
@@ -14,6 +39,17 @@ export class EmployeeEntity {
         estado: string;
         cep: string;
     };
+    /**
+     * Relacionamento ManyToOne N:1
+     * Muitos funcionários podem pertencer a uma empresa
+     */
+    @ManyToOne(() => CompanyEntity, company => company.employees, {
+        onDelete: 'CASCADE',
+    })
+    company: CompanyEntity;
+
+    @CreateDateColumn()
     createdAt: Date;
+    @UpdateDateColumn()
     updatedAt: Date;
 }
