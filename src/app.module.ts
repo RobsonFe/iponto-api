@@ -22,7 +22,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
                 password: configService.get('DB_PASSWORD'),
                 database: configService.get('DB_DATABASE'),
                 autoLoadEntities: true, // Carrega automaticamente as entidades
-                entities: [__dirname + '/**/*.entity{.ts,.js}'],
                 synchronize: true, // não pode ser usado em produção, apenas para desenvolvimento.
             }),
         }),
