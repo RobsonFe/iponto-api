@@ -41,7 +41,7 @@ export class CompanyRepository {
      * @returns CompanyEntity[] - retorna um array de empresas
      */
     async findAll(page: number, limit: number): Promise<CompanyEntity[]> {
-        const skip = Math.max(0, (page - 1)) * Math.max(1, limit);
+        const skip = (page - 1) * limit;
         
         return this.companyRepository.find({
             skip,

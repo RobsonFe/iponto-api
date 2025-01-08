@@ -46,7 +46,7 @@ export class CompanyController {
         return this.service.findById(id);
     }
 
-    @Get('/count')
+    @Get('count')
     async count(): Promise<number> {
         return this.service.count();
     }
