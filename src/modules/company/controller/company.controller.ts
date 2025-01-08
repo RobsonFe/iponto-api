@@ -24,7 +24,6 @@ export class CompanyController {
 
     @Post('save')
     async create(@Body() company: CreateCompanyDto): Promise<CompanyEntity> {
-        console.log('Dados: ', company);
         return this.service.create(company);
     }
 
