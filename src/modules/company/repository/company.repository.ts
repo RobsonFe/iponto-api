@@ -17,9 +17,7 @@ export class CompanyRepository {
      * @param createCompany
      * @returns company - retorna a empresa criada
      */
-    async createCompany(
-        createCompany: CreateCompanyDto,
-    ): Promise<CompanyEntity> {
+    async createCompany(createCompany: CreateCompanyDto): Promise<CompanyEntity> {
         const company = this.companyRepository.create(createCompany);
         return await this.companyRepository.save(company);
     }
@@ -29,10 +27,7 @@ export class CompanyRepository {
      * @param cnpj
      * @returns CompanyEntity | null - retorna a empresa ou null caso não encontre
      */
-    async updateCompany(
-        id: string,
-        updateData: UpdateCompanyDto,
-    ): Promise<CompanyEntity | null> {
+    async updateCompany(id: string,updateData: UpdateCompanyDto): Promise<CompanyEntity | null> {
         const company = await this.companyRepository.findOne({ where: { id } });
         if (!company) return null;
         Object.assign(company, updateData); // atualiza os dados da empresa sem sobrescrever tudo, melhorando a performance
@@ -46,11 +41,12 @@ export class CompanyRepository {
      * @returns CompanyEntity[] - retorna um array de empresas
      */
     async findAll(page: number, limit: number): Promise<CompanyEntity[]> {
-        const skip = (page - 1) * limit;
+        const skip = Math.max(0, (page - 1)) * Math.max(1, limit);
+        
         return this.companyRepository.find({
             skip,
             take: limit,
-            order: { createdAt: 'ASC' }, // Retorno em ordem crescente
+            order: { createdAt: 'ASC' }
         });
     }
 

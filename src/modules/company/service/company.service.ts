@@ -24,10 +24,7 @@ export class CompanyService {
         return this.company.findById(id);
     }
 
-    async update(
-        id: string,
-        updateCompany: UpdateCompanyDto,
-    ): Promise<CompanyEntity | null> {
+    async update(id: string,updateCompany: UpdateCompanyDto): Promise<CompanyEntity | null> {
         return this.company.updateCompany(id, updateCompany);
     }
 

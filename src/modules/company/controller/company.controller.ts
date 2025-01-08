@@ -5,9 +5,11 @@ https://docs.nestjs.com/controllers#controllers
 import {
     Body,
     Controller,
+    DefaultValuePipe,
     Delete,
     Get,
     Param,
+    ParseIntPipe,
     Patch,
     Post,
     Query,
@@ -20,27 +22,25 @@ import { CompanyEntity } from 'src/modules/entities/company.entity';
 export class CompanyController {
     constructor(private readonly service: CompanyService) {}
 
-    @Post('/save')
+    @Post('save')
     async create(@Body() company: CreateCompanyDto): Promise<CompanyEntity> {
         console.log('Dados: ', company);
         return this.service.create(company);
     }
 
-    @Patch(':id')
-    async update(
-        @Param('id') id: string,
-        @Body() company: CreateCompanyDto,
-    ): Promise<CompanyEntity | null> {
-        return this.service.update(id, company);
-    }
-
-    @Get('/list')
+    @Get('list')
     async findAll(
-        @Query('page') page: number = 1,
-        @Query('limit') limit: number = 10,
+        @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+        @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number
     ): Promise<CompanyEntity[]> {
         return this.service.findAll(page, limit);
     }
+
+    @Patch(':id')
+    async update( @Param('id') id: string, @Body() company: CreateCompanyDto): Promise<CompanyEntity | null> {
+        return this.service.update(id, company);
+    }
+
 
     @Get(':id')
     async findById(@Param('id') id: string): Promise<CompanyEntity | null> {
