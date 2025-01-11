@@ -8,6 +8,7 @@ import {
     UpdateDateColumn,
 } from 'typeorm';
 import { CompanyEntity } from './company.entity';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 @Entity({ name: 'employee' })
 export class EmployeeEntity {

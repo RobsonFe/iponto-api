@@ -53,7 +53,7 @@ class AddressDto {
     cep: string;
 }
 
-export class CreateEmployerDto {
+export class CreateEmployeeDto {
     @IsString()
     @IsNotEmpty()
     readonly nome: string;
@@ -82,4 +82,8 @@ export class CreateEmployerDto {
     @ValidateNested()
     @Type(() => AddressDto)
     readonly endereco: AddressDto;
+
+    @IsNotEmpty()
+    @IsString()
+    companyId: string;
 }
