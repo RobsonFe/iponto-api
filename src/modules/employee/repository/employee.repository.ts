@@ -54,7 +54,7 @@ export class EmployeeRepository {
      * @param updateData 
      * @returns EmployeeEntity | null - retorna o funcionário atualizado ou null caso não encontre
      */
-    async updateEmployee(id: string, updateData: UpdateEmployeeDto): Promise<EmployeeEntity> {
+    async updateEmployee(id: string, updateData: UpdateEmployeeDto): Promise<EmployeeEntity | null> {
         const employee = await this.employeeRepository.findOne({
             where: { id },
             relations: ['company']

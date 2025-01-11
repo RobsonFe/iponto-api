@@ -2,18 +2,28 @@
 https://docs.nestjs.com/controllers#controllers
 */
 
-import { Body, Controller, DefaultValuePipe, Delete, Get, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
+import { Body, ConflictException, Controller, DefaultValuePipe, Delete, Get, HttpCode, HttpStatus, InternalServerErrorException, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
 import { EmployeeService } from '../service/employee.service';
 import { CreateEmployeeDto } from '../dto/create-employee.dto';
 import { EmployeeEntity } from 'src/modules/entities/employee.entity';
+import { EMPLOYEE_EXCEPTIONS } from '../constants/exceptions';
 
 @Controller('employee')
 export class EmployeeController {
     constructor(private readonly service: EmployeeService) {}
 
     @Post('save')
+    @HttpCode(HttpStatus.CREATED)
     async createEmployee(@Body() employee: CreateEmployeeDto): Promise<EmployeeEntity> {
-        return this.service.createEmployee(employee);
+        try {
+            const newEmployee = await this.service.createEmployee(employee);
+            return newEmployee;
+        } catch (error) {
+            if (error.code === '23505') { 
+                throw new ConflictException(EMPLOYEE_EXCEPTIONS.EMPLOYEE_ALREADY_EXISTS);
+            }
+            throw new InternalServerErrorException(HttpCode(HttpStatus.INTERNAL_SERVER_ERROR));
+        }
     }
 
     @Get('list')
