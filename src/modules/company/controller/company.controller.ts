@@ -17,6 +17,7 @@ import {
 import { CompanyService } from '../service/company.service';
 import { CreateCompanyDto } from '../dto/create-company.dto';
 import { CompanyEntity } from 'src/modules/entities/company.entity';
+import { UpdateCompanyDto } from '../dto/update-company.dto';
 
 @Controller('company')
 export class CompanyController {
@@ -35,13 +36,13 @@ export class CompanyController {
         return this.service.findAll(page, limit);
     }
 
-    @Patch(':id')
-    async update( @Param('id') id: string, @Body() company: CreateCompanyDto): Promise<CompanyEntity | null> {
+    @Patch('update/:id')
+    async update( @Param('id') id: string, @Body() company: UpdateCompanyDto): Promise<CompanyEntity | null> {
         return this.service.update(id, company);
     }
 
 
-    @Get(':id')
+    @Get('find/:id')
     async findById(@Param('id') id: string): Promise<CompanyEntity | null> {
         return this.service.findById(id);
     }
@@ -51,7 +52,7 @@ export class CompanyController {
         return this.service.count();
     }
 
-    @Delete(':id')
+    @Delete('delete/:id')
     async delete(@Param('id') id: string): Promise<void> {
         return this.service.delete(id);
     }
