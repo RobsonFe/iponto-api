@@ -8,7 +8,7 @@ import { EmployeeEntity } from 'src/modules/entities/employee.entity';
 import { CreateEmployeeDto } from '../dto/create-employee.dto';
 import { CompanyService } from 'src/modules/company/service/company.service';
 import { UpdateEmployeeDto } from '../dto/update-employee.dto';
-import { validationCreateEmployee } from '../validation/validation';
+import { validateUpdateEmployee, validationCreateEmployee} from '../validation/validation';
 import { EMPLOYEE_EXCEPTIONS } from '../constants/exceptions';
 
 @Injectable()
@@ -47,28 +47,20 @@ export class EmployeeService {
 
     async update(id: string, updateData: UpdateEmployeeDto): Promise<EmployeeEntity> {
         try {
-            // Busca funcionário existente
+            // Verifica se o funcionário existe
             const existingEmployee = await this.employee.findById(id);
             if (!existingEmployee) {
-                throw new NotFoundException('Funcionário não encontrado');
+                throw new NotFoundException(EMPLOYEE_EXCEPTIONS.EMPLOYEE_NOT_FOUND);
             }
 
-            // Valida Company
-            if (updateData.companyId) {
-                const company = await this.company.findById(updateData.companyId);
-                if (!company) {
-                    throw new NotFoundException('Empresa não encontrada');
-                }
-            }
-
+            validateUpdateEmployee(updateData);
+            
             // Atualiza funcionário
             const updated = await this.employee.updateEmployee(id, updateData);
             return updated;
 
         } catch (error) {
-            if (error instanceof NotFoundException || error instanceof ConflictException) {
-                throw error;
-            }
+            console.error(error);
             throw new InternalServerErrorException('Erro ao atualizar funcionário');
         }
     }
