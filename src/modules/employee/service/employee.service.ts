@@ -14,7 +14,7 @@ import { EMPLOYEE_EXCEPTIONS } from '../constants/exceptions';
 @Injectable()
 export class EmployeeService {
     constructor(
-        private readonly employee:EmployeeRepository,
+        private readonly repository:EmployeeRepository,
         private readonly company: CompanyService
     ) {}
 
@@ -25,7 +25,7 @@ export class EmployeeService {
             
             validationCreateEmployee(company);
             
-            return this.employee.createEmployee({
+            return this.repository.createEmployee({
                 ...createEmployee,
                 companyId: company.id
             });
@@ -38,25 +38,25 @@ export class EmployeeService {
     }
 
     async findAll(page: number, limit: number): Promise<EmployeeEntity[]> {
-        return this.employee.findAll(page, limit);
+        return this.repository.findAll(page, limit);
     }
 
     async findById(id: string): Promise<EmployeeEntity | null> {
-        return this.employee.findById(id);
+        return this.repository.findById(id);
     }
 
     async update(id: string, updateData: UpdateEmployeeDto): Promise<EmployeeEntity> {
         try {
             // Verifica se o funcionário existe
-            const existingEmployee = await this.employee.findById(id);
+            const existingEmployee = await this.repository.findById(id);
             if (!existingEmployee) {
                 throw new NotFoundException(EMPLOYEE_EXCEPTIONS.EMPLOYEE_NOT_FOUND);
             }
 
             validateUpdateEmployee(updateData);
-            
+
             // Atualiza funcionário
-            const updated = await this.employee.updateEmployee(id, updateData);
+            const updated = await this.repository.updateEmployee(id, updateData);
             return updated;
 
         } catch (error) {
@@ -66,11 +66,11 @@ export class EmployeeService {
     }
 
     async delete(id: string): Promise<void> {
-        return this.employee.deleteEmployee(id);
+        return this.repository.deleteEmployee(id);
     }
 
     async count(): Promise<number> {
-        return this.employee.count();
+        return this.repository.count();
     }
 
 }

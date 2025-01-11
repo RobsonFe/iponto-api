@@ -2,7 +2,22 @@
 https://docs.nestjs.com/controllers#controllers
 */
 
-import { Body, ConflictException, Controller, DefaultValuePipe, Delete, Get, HttpCode, HttpStatus, InternalServerErrorException, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
+import { 
+    Body, 
+    ConflictException, 
+    Controller, 
+    DefaultValuePipe, 
+    Delete, 
+    Get, 
+    HttpCode, 
+    HttpStatus, 
+    InternalServerErrorException, 
+    Param, 
+    ParseIntPipe, 
+    Patch, 
+    Post, 
+    Query 
+} from '@nestjs/common';
 import { EmployeeService } from '../service/employee.service';
 import { CreateEmployeeDto } from '../dto/create-employee.dto';
 import { EmployeeEntity } from 'src/modules/entities/employee.entity';

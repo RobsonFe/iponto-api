@@ -10,29 +10,29 @@ import { UpdateCompanyDto } from '../dto/update-company.dto';
 
 @Injectable()
 export class CompanyService {
-    constructor(private readonly company: CompanyRepository) {}
+    constructor(private readonly repository: CompanyRepository) {}
 
     async create(createCompany: CreateCompanyDto): Promise<CompanyEntity> {
-        return this.company.createCompany(createCompany);
+        return this.repository.createCompany(createCompany);
     }
 
     async findAll(page: number, limit: number): Promise<CompanyEntity[]> {
-        return this.company.findAll(page, limit);
+        return this.repository.findAll(page, limit);
     }
 
     async findById(id: string): Promise<CompanyEntity | null> {
-        return this.company.findById(id);
+        return this.repository.findById(id);
     }
 
     async update(id: string,updateCompany: UpdateCompanyDto): Promise<CompanyEntity | null> {
-        return this.company.updateCompany(id, updateCompany);
+        return this.repository.updateCompany(id, updateCompany);
     }
 
     async delete(id: string): Promise<void> {
-        return this.company.deleteCompany(id);
+        return this.repository.deleteCompany(id);
     }
 
     async count(): Promise<number> {
-        return this.company.count();
+        return this.repository.count();
     }
 }
