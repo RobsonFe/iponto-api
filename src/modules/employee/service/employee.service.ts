@@ -45,7 +45,7 @@ export class EmployeeService {
         return this.repository.findById(id);
     }
 
-    async update(id: string, updateData: UpdateEmployeeDto): Promise<EmployeeEntity> {
+    async update(id: string, updateData: UpdateEmployeeDto): Promise<EmployeeEntity | null> {
         try {
             // Verifica se o funcionário existe
             const existingEmployee = await this.repository.findById(id);

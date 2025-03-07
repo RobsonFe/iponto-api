@@ -1,7 +1,5 @@
 import { NotFoundException } from '@nestjs/common';
 import { EMPLOYEE_EXCEPTIONS } from '../constants/exceptions';
-import { error } from 'console';
-import { EmployeeRepository } from '../repository/employee.repository';
 import { UpdateEmployeeDto } from '../dto/update-employee.dto';
 
 export function validationCreateEmployee(data: any) {
