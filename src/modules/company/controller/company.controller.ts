@@ -18,12 +18,14 @@ import { CompanyService } from '../service/company.service';
 import { CreateCompanyDto } from '../dto/create-company.dto';
 import { CompanyEntity } from 'src/modules/entities/company.entity';
 import { UpdateCompanyDto } from '../dto/update-company.dto';
+import { CreateCompanyDoc } from '../contracts/company-contract-api';
 
 @Controller('company')
 export class CompanyController {
     constructor(private readonly service: CompanyService) {}
 
     @Post('save')
+    @CreateCompanyDoc()
     async create(@Body() company: CreateCompanyDto): Promise<CompanyEntity> {
         return this.service.create(company);
     }
