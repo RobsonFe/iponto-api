@@ -18,7 +18,7 @@ import { CompanyService } from '../service/company.service';
 import { CreateCompanyDto } from '../dto/create-company.dto';
 import { CompanyEntity } from 'src/modules/entities/company.entity';
 import { UpdateCompanyDto } from '../dto/update-company.dto';
-import { CreateCompanyDoc, FindAllCompaniesDoc } from '../contracts/company-contract-api';
+import { CreateCompanyDoc, FindAllCompaniesDoc, UpdateCompanyDoc } from '../contracts/company-contract-api';
 
 @Controller('company')
 export class CompanyController {
@@ -40,6 +40,7 @@ export class CompanyController {
     }
 
     @Patch('update/:id')
+    @UpdateCompanyDoc()
     async update( @Param('id') id: string, @Body() company: UpdateCompanyDto): Promise<CompanyEntity | null> {
         return this.service.update(id, company);
     }

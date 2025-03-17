@@ -26,29 +26,3 @@ export function validationCreateCompany(data) {
         );
     }
 }
-
-export function validateUpdateCompany(data) {
-    if (data.cnpj === null || data.cnpj === undefined) {
-        throw new NotFoundException(
-            COMPANY_EXCEPTIONS.COMPANY_NOT_UPDATED
-        );
-    }
-
-    if (data.email === null || data.email === undefined) {
-        throw new NotFoundException(
-            COMPANY_EXCEPTIONS.COMPANY_NOT_UPDATED
-        );
-    }
-
-    if (data.nome === null || data.nome === undefined) {
-        throw new NotFoundException(
-            COMPANY_EXCEPTIONS.COMPANY_NOT_UPDATED
-        );
-    }
-
-    if(data.cnpj.length < 14 || data.cnpj.length > 20) {
-        throw new NotFoundException(
-            COMPANY_EXCEPTIONS.COMPANY_NOT_UPDATED
-        );
-    }
-}

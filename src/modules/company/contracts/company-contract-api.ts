@@ -1,7 +1,8 @@
 import { applyDecorators, HttpCode, HttpStatus } from '@nestjs/common';
-import { ApiBody, ApiForbiddenResponse, ApiHeader, ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiForbiddenResponse, ApiHeader, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Body, Param } from '@nestjs/common';
 import { CompanyEntity } from 'src/modules/entities/company.entity';
+import { UpdateCompanyDto } from '../dto/update-company.dto';
 
 export function CompanyContractApi() {
   return applyDecorators(
@@ -194,9 +195,62 @@ export function FindAllCompaniesDoc() {
 
 export function UpdateCompanyDoc() {
   return applyDecorators(
-    ApiOperation({ summary: 'Update a company' }),
-    ApiResponse({ status: 200, description: 'Company updated successfully' }),
-    ApiResponse({ status: 404, description: 'Company not found' }),
+    ApiTags('Company'),
+    ApiHeader({
+        name: 'Atualizar Empresa',
+        description: 'Atualizar dados de uma empresa no sistema, persistindo no banco de dados.',
+    }),
+    ApiParam({ name: 'id', description: 'Identificador único da empresa', required: true }),
+    ApiBody({
+        schema:{
+            type: 'object',
+            properties: {
+                nome: { type: 'string', example: 'Maze Bank' },
+                cnpj: { type: 'string', example: '16.365.666/0001-88' },
+                email: { type: 'string', example: 'mazebank@email.com' },
+                phone: { type: 'string', example: '5581988881111' },
+                site: { type: 'string', example: 'www.mazebank.com' },
+                endereco: {
+                    type: 'object',
+                    properties: {
+                        rua: { type: 'string', example: 'Liberty City Avenue' },
+                        numero: { type: 'string', example: '123' },
+                        bairro: { type: 'string', example: 'Algonquin' },
+                        cidade: { type: 'string', example: 'Liberty City' },
+                        estado: { type: 'string', example: 'Liberty State' },
+                        cep: { type: 'string', example: '00000-000' },
+                    },
+                },
+            },
+        },
+    }),
+    ApiOperation({ summary: 'Atualizar dados da empresa.' }),
+    ApiResponse({ 
+        status: 200, 
+        description: 'Empresa Atualizada com sucesso!',
+        example:{
+            nome: 'Maze Bank',
+            cnpj: '16.365.666/0001-88',
+            email: 'mazebank@email.com',
+            phone: '5581988881111',
+            site: 'www.mazebank.com',
+            endereco: {
+              rua: 'Liberty City Avenue',
+              numero: '123',
+              bairro: 'Algonquin',
+              cidade: 'Liberty City',
+              estado: 'Liberty State',
+              cep: '00000-000',
+            },
+            id: 'fa3b71ab-6b6b-5067-a9df-2f9d4a25cf98',
+            createdAt: '2021-08-18T00:00:00.000Z',
+            updatedAt: '2021-08-18T00:00:00.000Z',
+        }
+     }),
+    ApiResponse({ status: 404, description: 'Empresa não encontrada.' }),
+    ApiResponse({ status: 400, description: 'Erro de validação' }),
+    ApiResponse({ status: 500, description: 'Erro no servidor' }),
+    HttpCode(HttpStatus.OK),
   );
 }
 

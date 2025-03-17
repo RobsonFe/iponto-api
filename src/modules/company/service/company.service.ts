@@ -8,10 +8,7 @@ import { CompanyRepository } from '../repository/company.repository';
 import { CompanyEntity } from 'src/modules/entities/company.entity';
 import { UpdateCompanyDto } from '../dto/update-company.dto';
 import { COMPANY_EXCEPTIONS } from '../constants/exceptions';
-import {
-    validateUpdateCompany,
-    validationCreateCompany,
-} from '../validation/validation';
+import { validationCreateCompany } from '../validation/validation';
 
 @Injectable()
 export class CompanyService {
@@ -44,11 +41,10 @@ export class CompanyService {
     ): Promise<CompanyEntity | null> {
         try {
             const existingCompany = await this.repository.findById(id);
+            
             if (!existingCompany) {
                 throw new Error(COMPANY_EXCEPTIONS.COMPANY_NOT_FOUND);
             }
-
-            validateUpdateCompany(updateCompany);
 
             const updated = await this.repository.updateCompany(
                 id,
