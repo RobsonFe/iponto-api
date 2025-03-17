@@ -18,7 +18,7 @@ import { CompanyService } from '../service/company.service';
 import { CreateCompanyDto } from '../dto/create-company.dto';
 import { CompanyEntity } from 'src/modules/entities/company.entity';
 import { UpdateCompanyDto } from '../dto/update-company.dto';
-import { CreateCompanyDoc } from '../contracts/company-contract-api';
+import { CreateCompanyDoc, FindAllCompaniesDoc } from '../contracts/company-contract-api';
 
 @Controller('company')
 export class CompanyController {
@@ -31,6 +31,7 @@ export class CompanyController {
     }
 
     @Get('list')
+    @FindAllCompaniesDoc()
     async findAll(
         @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
         @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number
