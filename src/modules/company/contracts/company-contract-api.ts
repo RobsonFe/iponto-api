@@ -1,12 +1,14 @@
 import { applyDecorators, HttpCode, HttpStatus } from '@nestjs/common';
 import { ApiBody, ApiForbiddenResponse, ApiHeader, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Body, Param } from '@nestjs/common';
-import { CompanyEntity } from 'src/modules/entities/company.entity';
-import { UpdateCompanyDto } from '../dto/update-company.dto';
 
 export function CompanyContractApi() {
   return applyDecorators(
     ApiTags('Company'),
+    ApiHeader({
+        name: 'Empresa',
+        description: 'Endpoints para manipulação de dados das empresas cadastradas no sistema.',
+    }),
+    ApiForbiddenResponse({ description: 'Acesso negado.' }),
   );
 }
 
@@ -79,7 +81,7 @@ export function CreateCompanyDoc() {
           },
         },
       }),
-      ApiForbiddenResponse({ description: 'Erro no registro' }),
+      ApiResponse({ status: 500, description: 'Erro no servidor.' }),
       HttpCode(HttpStatus.CREATED),
     );
   }
@@ -256,23 +258,67 @@ export function UpdateCompanyDoc() {
 
 export function FindCompanyByIdDoc() {
   return applyDecorators(
-    ApiOperation({ summary: 'Find a company by id' }),
-    ApiResponse({ status: 200, description: 'Return a company' }),
-    ApiResponse({ status: 404, description: 'Company not found' }),
+    ApiTags('Company'),
+    ApiParam({ name: 'id', description: 'ID da Empresa a ser encontrada.', required: true }),
+    ApiOperation({ summary: 'Encontre uma empresa pelo ID.' }),
+    ApiResponse({ 
+        status: 200, description: 'Retorna a empresa buscada.' ,
+        example:{
+            nome: 'Maze Bank',
+            cnpj: '16.365.666/0001-88',
+            email: 'mazebank@email.com',
+            phone: '5581988881111',
+            site: 'www.mazebank.com',
+            endereco: {
+              rua: 'Liberty City Avenue',
+              numero: '123',
+              bairro: 'Algonquin',
+              cidade: 'Liberty City',
+              estado: 'Liberty State',
+              cep: '00000-000',
+            },
+            id: 'fa3b71ab-6b6b-5067-a9df-2f9d4a25cf98',
+            createdAt: '2021-08-18T00:00:00.000Z',
+            updatedAt: '2021-08-18T00:00:00.000Z',
+        }
+    }),
+    ApiResponse({ status: 404, description: 'Empresa não encontrada.' }),
+    ApiResponse({ status: 500, description: 'Erro no servidor.' }),
+    HttpCode(HttpStatus.OK)
   );
 }
 
 export function CountCompaniesDoc() {
   return applyDecorators(
-    ApiOperation({ summary: 'Count all companies' }),
-    ApiResponse({ status: 200, description: 'Return the total of companies' }),
+    ApiTags('Company'),
+    ApiHeader({
+        name: 'Contagem de Empresas',
+        description: 'Contagem de empresas cadastradas no sistema, esse dados são importantes para estatísticas e relatórios.',
+    }),
+    ApiOperation({ summary: 'Contagem de empresas cadastradas.' }),
+    ApiResponse({ 
+        status: 200, 
+        description: 'Retorna a contagem de empresas no sistema',
+        example: 10,
+    }),
+    ApiResponse({ status: 400, description: 'Erro de requisição.' }),
+    ApiResponse({ status: 500, description: 'Erro no servidor.' }),
+    HttpCode(HttpStatus.OK),
   );
 }
 
 export function DeleteCompanyDoc() {
   return applyDecorators(
-    ApiOperation({ summary: 'Delete a company' }),
-    ApiResponse({ status: 200, description: 'Company deleted successfully' }),
-    ApiResponse({ status: 404, description: 'Company not found' }),
+    ApiTags('Company'),
+    ApiParam({ name: 'id', description: 'ID da Empresa a ser deletada.', required: true }),
+    ApiHeader({
+        name: 'Deletar Empresa',
+        description: 'Deletar uma empresa do sistema, removendo do banco de dados.',
+    }),
+    ApiOperation({ summary: 'Deletar uma empresa.' }), 
+    ApiResponse({ status: 204, description: 'Empresa Deletada com sucesso.' }),
+    ApiResponse({ status: 404, description: 'Empresa não encontrada.' }),
+    ApiResponse({ status: 500, description: 'Erro no servidor.' }),
+    HttpCode(HttpStatus.NO_CONTENT),
   );
 }
