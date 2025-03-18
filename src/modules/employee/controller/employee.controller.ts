@@ -22,13 +22,16 @@ import { EmployeeService } from '../service/employee.service';
 import { CreateEmployeeDto } from '../dto/create-employee.dto';
 import { EmployeeEntity } from 'src/modules/entities/employee.entity';
 import { EMPLOYEE_EXCEPTIONS } from '../constants/exceptions';
+import { CreateEmployeeDoc, EmployeeContractApi, UpdateEmployeeDoc } from '../contracts/employee-contract-api';
 
 @Controller('employee')
+@EmployeeContractApi()
 export class EmployeeController {
     constructor(private readonly service: EmployeeService) {}
 
     @Post('save')
     @HttpCode(HttpStatus.CREATED)
+    @CreateEmployeeDoc()
     async createEmployee(@Body() employee: CreateEmployeeDto): Promise<EmployeeEntity> {
         try {
             const newEmployee = await this.service.createEmployee(employee);
@@ -66,6 +69,7 @@ export class EmployeeController {
 
     @Patch('update/:id')
     @HttpCode(HttpStatus.OK)
+    @UpdateEmployeeDoc()
     async update(@Param('id') id: string, @Body() employee: CreateEmployeeDto): Promise<EmployeeEntity | null> {
         try {
             return this.service.update(id, employee);

@@ -8,7 +8,7 @@ import { EmployeeEntity } from 'src/modules/entities/employee.entity';
 import { CreateEmployeeDto } from '../dto/create-employee.dto';
 import { CompanyService } from 'src/modules/company/service/company.service';
 import { UpdateEmployeeDto } from '../dto/update-employee.dto';
-import { validationCreateEmployee} from '../validation/validation';
+import { validationCreateEmployee } from '../validation/validation';
 import { EMPLOYEE_EXCEPTIONS } from '../constants/exceptions';
 
 @Injectable()

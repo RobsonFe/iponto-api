@@ -18,9 +18,10 @@ import { CompanyService } from '../service/company.service';
 import { CreateCompanyDto } from '../dto/create-company.dto';
 import { CompanyEntity } from 'src/modules/entities/company.entity';
 import { UpdateCompanyDto } from '../dto/update-company.dto';
-import { CountCompaniesDoc, CreateCompanyDoc, DeleteCompanyDoc, FindAllCompaniesDoc, FindCompanyByIdDoc, UpdateCompanyDoc } from '../contracts/company-contract-api';
+import { CompanyContractApi, CountCompaniesDoc, CreateCompanyDoc, DeleteCompanyDoc, FindAllCompaniesDoc, FindCompanyByIdDoc, UpdateCompanyDoc } from '../contracts/company-contract-api';
 
 @Controller('company')
+@CompanyContractApi()
 export class CompanyController {
     constructor(private readonly service: CompanyService) {}
 

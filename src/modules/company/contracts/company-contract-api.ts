@@ -8,7 +8,7 @@ export function CompanyContractApi() {
         name: 'Empresa',
         description: 'Endpoints para manipulação de dados das empresas cadastradas no sistema.',
     }),
-    ApiForbiddenResponse({ description: 'Acesso negado.' }),
+    ApiForbiddenResponse({ description: 'Acesso negado ao endpoint.' }),
   );
 }
 
