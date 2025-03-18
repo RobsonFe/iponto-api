@@ -24,11 +24,13 @@ async function bootstrap() {
         .setTermsOfService('https://www.termsfeed.com/live/38226a32-d1fb-4783-8925-ad4706359984')
         .setExternalDoc('Documentação da API com todas as fases e especificações do projeto.', 'https://docs.google.com/document/d/1ZEBIqUWARSRgf9nwzdOd5fPf2UZD_VuFm8nMKpzmBAw/edit?usp=sharing')
         .setVersion('1.0')
-        .addTag('API')
+        .addTag('Iponto')
         .build();
 
         const document = SwaggerModule.createDocument(app, config);
-        SwaggerModule.setup('doc', app, document);
+        SwaggerModule.setup('doc', app, document, {
+            customSiteTitle: 'Iponto',
+        });
     
     app.useGlobalPipes(
         new ValidationPipe({

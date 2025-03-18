@@ -9,13 +9,3 @@ export function validationCreateEmployee(data: any) {
         );
     }
 }
-
-export function validateUpdateEmployee(data: UpdateEmployeeDto) {
-    if (!data) {
-        throw new Error(EMPLOYEE_EXCEPTIONS.EMPLOYEE_NOT_UPDATED);
-    }
-
-    if (!data.companyId) {
-        throw new NotFoundException(EMPLOYEE_EXCEPTIONS.COMPANY_NOT_FOUND);
-    }
-}
