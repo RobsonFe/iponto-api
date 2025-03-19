@@ -46,6 +46,7 @@ export class EmployeeEntity {
      */
     @ManyToOne(() => CompanyEntity, company => company.employees, {
         onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
     })
     company: CompanyEntity;
 
