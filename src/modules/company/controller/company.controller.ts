@@ -5,11 +5,9 @@ https://docs.nestjs.com/controllers#controllers
 import {
     Body,
     Controller,
-    DefaultValuePipe,
     Delete,
     Get,
     Param,
-    ParseIntPipe,
     Patch,
     Post,
     Query,
@@ -19,6 +17,7 @@ import { CreateCompanyDto } from '../dto/create-company.dto';
 import { CompanyEntity } from 'src/modules/entities/company.entity';
 import { UpdateCompanyDto } from '../dto/update-company.dto';
 import { CompanyContractApi, CountCompaniesDoc, CreateCompanyDoc, DeleteCompanyDoc, FindAllCompaniesDoc, FindCompanyByIdDoc, UpdateCompanyDoc } from '../contracts/company-contract-api';
+import { PaginationDto } from 'src/modules/dto/pagination/pagination-dto';
 
 @Controller('company')
 @CompanyContractApi()
@@ -33,11 +32,8 @@ export class CompanyController {
 
     @Get('list')
     @FindAllCompaniesDoc()
-    async findAll(
-        @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
-        @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number
-    ): Promise<CompanyEntity[]> {
-        return this.service.findAll(page, limit);
+    async findAll(@Query() pagination?: PaginationDto): Promise<CompanyEntity[]> {
+        return this.service.findAll(pagination);
     }
 
     @Patch('update/:id')

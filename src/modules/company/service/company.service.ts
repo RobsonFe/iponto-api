@@ -9,6 +9,7 @@ import { CompanyEntity } from 'src/modules/entities/company.entity';
 import { UpdateCompanyDto } from '../dto/update-company.dto';
 import { COMPANY_EXCEPTIONS } from '../constants/exceptions';
 import { validationCreateCompany } from '../validation/validation';
+import { PaginationDto } from 'src/modules/dto/pagination/pagination-dto';
 
 @Injectable()
 export class CompanyService {
@@ -27,8 +28,8 @@ export class CompanyService {
         }
     }
 
-    async findAll(page: number, limit: number): Promise<CompanyEntity[]> {
-        return this.repository.findAll(page, limit);
+    async findAll(pagination?:PaginationDto): Promise<CompanyEntity[]> {
+        return this.repository.findAll(pagination);
     }
 
     async findById(id: string): Promise<CompanyEntity | null> {

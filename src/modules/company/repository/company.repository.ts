@@ -4,6 +4,8 @@ import { CompanyEntity } from 'src/modules/entities/company.entity';
 import { Repository } from 'typeorm';
 import { CreateCompanyDto } from '../dto/create-company.dto';
 import { UpdateCompanyDto } from '../dto/update-company.dto';
+import { PaginationDto } from 'src/modules/dto/pagination/pagination-dto';
+import { Console } from 'console';
 
 @Injectable()
 export class CompanyRepository {
@@ -40,9 +42,10 @@ export class CompanyRepository {
      * @param limit
      * @returns CompanyEntity[] - retorna um array de empresas
      */
-    async findAll(page: number, limit: number): Promise<CompanyEntity[]> {
-        const skip = (page - 1) * limit;
-        
+    async findAll(pagination?:PaginationDto): Promise<CompanyEntity[]> {
+        const skip =  pagination?.page ? (pagination.page - 1) * (pagination.limit || 10) : undefined;
+        const limit = pagination?.limit;
+
         return this.companyRepository.find({
             skip,
             take: limit,
