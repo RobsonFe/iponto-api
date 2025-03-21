@@ -6,14 +6,12 @@ import {
     Body, 
     ConflictException, 
     Controller, 
-    DefaultValuePipe, 
     Delete, 
     Get, 
     HttpCode, 
     HttpStatus, 
     InternalServerErrorException, 
-    Param, 
-    ParseIntPipe, 
+    Param,  
     Patch, 
     Post, 
     Query 
@@ -23,6 +21,7 @@ import { CreateEmployeeDto } from '../dto/create-employee.dto';
 import { EmployeeEntity } from 'src/modules/entities/employee.entity';
 import { EMPLOYEE_EXCEPTIONS } from '../constants/exceptions';
 import { CreateEmployeeDoc, EmployeeContractApi, UpdateEmployeeDoc } from '../contracts/employee-contract-api';
+import { PaginationDto } from 'src/modules/dto/pagination/pagination-dto';
 
 @Controller('employee')
 @EmployeeContractApi()
@@ -47,11 +46,10 @@ export class EmployeeController {
     @Get('list')
     @HttpCode(HttpStatus.OK)
     async findAll(
-        @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
-        @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number
+        @Query() pagination:PaginationDto
     ): Promise<EmployeeEntity[]> {
         try {
-            return this.service.findAll(page, limit);
+            return this.service.findAll(pagination);
         } catch (error) {
             throw new InternalServerErrorException(HttpCode(HttpStatus.INTERNAL_SERVER_ERROR));
         }

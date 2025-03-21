@@ -1,24 +1,14 @@
-import { applyDecorators, HttpCode, HttpStatus } from '@nestjs/common';
+import { applyDecorators } from '@nestjs/common';
 import { ApiBody, ApiForbiddenResponse, ApiHeader, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 export function CompanyContractApi() {
   return applyDecorators(
     ApiTags('Company'),
-    ApiHeader({
-        name: 'Empresa',
-        description: 'Endpoints para manipulação de dados das empresas cadastradas no sistema.',
-    }),
-    ApiForbiddenResponse({ description: 'Acesso negado ao endpoint.' }),
   );
 }
 
 export function CreateCompanyDoc() {
     return applyDecorators(
-      ApiHeader({
-        name: 'Registro de Empresa',
-        description: 'Registro de uma nova empresa no sistema, persistindo no banco de dados',
-      }),
-      ApiTags('Company'),
       ApiOperation({ summary: 'Registra uma empresa no sistema.' }),
       ApiBody({
         schema: {
@@ -82,18 +72,12 @@ export function CreateCompanyDoc() {
         },
       }),
       ApiResponse({ status: 500, description: 'Erro no servidor.' }),
-      HttpCode(HttpStatus.CREATED),
     );
   }
   
 
 export function FindAllCompaniesDoc() {
   return applyDecorators(
-    ApiTags('Company'),
-    ApiHeader({
-        name: 'Listar Empresas',
-        description: 'Listar todas as empresas cadastradas no sistema, retornando uma lista de empresas com todos os dados.',
-    }),
     ApiOperation({
          summary: 'Listar todas as empresas cadastradas no sistema',
          description: 'Listar todas as empresas cadastradas no sistema, retornando uma lista de empresas com todos os dados.', 
@@ -191,17 +175,11 @@ export function FindAllCompaniesDoc() {
             },
         },
     }),
-    HttpCode(HttpStatus.OK),
   );
 }
 
 export function UpdateCompanyDoc() {
   return applyDecorators(
-    ApiTags('Company'),
-    ApiHeader({
-        name: 'Atualizar Empresa',
-        description: 'Atualizar dados de uma empresa no sistema, persistindo no banco de dados.',
-    }),
     ApiParam({ name: 'id', description: 'Identificador único da empresa', required: true }),
     ApiBody({
         schema:{
@@ -252,13 +230,11 @@ export function UpdateCompanyDoc() {
     ApiResponse({ status: 404, description: 'Empresa não encontrada.' }),
     ApiResponse({ status: 400, description: 'Erro de validação' }),
     ApiResponse({ status: 500, description: 'Erro no servidor' }),
-    HttpCode(HttpStatus.OK),
   );
 }
 
 export function FindCompanyByIdDoc() {
   return applyDecorators(
-    ApiTags('Company'),
     ApiParam({ name: 'id', description: 'ID da Empresa a ser encontrada.', required: true }),
     ApiOperation({ summary: 'Encontre uma empresa pelo ID.' }),
     ApiResponse({ 
@@ -284,17 +260,11 @@ export function FindCompanyByIdDoc() {
     }),
     ApiResponse({ status: 404, description: 'Empresa não encontrada.' }),
     ApiResponse({ status: 500, description: 'Erro no servidor.' }),
-    HttpCode(HttpStatus.OK)
   );
 }
 
 export function CountCompaniesDoc() {
   return applyDecorators(
-    ApiTags('Company'),
-    ApiHeader({
-        name: 'Contagem de Empresas',
-        description: 'Contagem de empresas cadastradas no sistema, esse dados são importantes para estatísticas e relatórios.',
-    }),
     ApiOperation({ summary: 'Contagem de empresas cadastradas.' }),
     ApiResponse({ 
         status: 200, 
@@ -303,22 +273,15 @@ export function CountCompaniesDoc() {
     }),
     ApiResponse({ status: 400, description: 'Erro de requisição.' }),
     ApiResponse({ status: 500, description: 'Erro no servidor.' }),
-    HttpCode(HttpStatus.OK),
   );
 }
 
 export function DeleteCompanyDoc() {
   return applyDecorators(
-    ApiTags('Company'),
     ApiParam({ name: 'id', description: 'ID da Empresa a ser deletada.', required: true }),
-    ApiHeader({
-        name: 'Deletar Empresa',
-        description: 'Deletar uma empresa do sistema, removendo do banco de dados.',
-    }),
     ApiOperation({ summary: 'Deletar uma empresa.' }), 
     ApiResponse({ status: 204, description: 'Empresa Deletada com sucesso.' }),
     ApiResponse({ status: 404, description: 'Empresa não encontrada.' }),
     ApiResponse({ status: 500, description: 'Erro no servidor.' }),
-    HttpCode(HttpStatus.NO_CONTENT),
   );
 }

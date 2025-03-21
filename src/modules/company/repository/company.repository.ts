@@ -5,7 +5,6 @@ import { Repository } from 'typeorm';
 import { CreateCompanyDto } from '../dto/create-company.dto';
 import { UpdateCompanyDto } from '../dto/update-company.dto';
 import { PaginationDto } from 'src/modules/dto/pagination/pagination-dto';
-import { Console } from 'console';
 
 @Injectable()
 export class CompanyRepository {
@@ -38,8 +37,7 @@ export class CompanyRepository {
 
     /**
      * @description Método para listar todas as empresas
-     * @param page
-     * @param limit
+     * @param pagination - objeto com informações de paginação
      * @returns CompanyEntity[] - retorna um array de empresas
      */
     async findAll(pagination?:PaginationDto): Promise<CompanyEntity[]> {

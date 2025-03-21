@@ -36,10 +36,7 @@ export class CompanyService {
         return this.repository.findById(id);
     }
 
-    async update(
-        id: string,
-        updateCompany: UpdateCompanyDto,
-    ): Promise<CompanyEntity | null> {
+    async update( id: string, updateCompany: UpdateCompanyDto ): Promise<CompanyEntity | null> {
         try {
             const existingCompany = await this.repository.findById(id);
             

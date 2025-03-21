@@ -10,6 +10,7 @@ import { CompanyService } from 'src/modules/company/service/company.service';
 import { UpdateEmployeeDto } from '../dto/update-employee.dto';
 import { validationCreateEmployee } from '../validation/validation';
 import { EMPLOYEE_EXCEPTIONS } from '../constants/exceptions';
+import { PaginationDto } from 'src/modules/dto/pagination/pagination-dto';
 
 @Injectable()
 export class EmployeeService {
@@ -37,8 +38,8 @@ export class EmployeeService {
         }
     }
 
-    async findAll(page: number, limit: number): Promise<EmployeeEntity[]> {
-        return this.repository.findAll(page, limit);
+    async findAll(pagination?:PaginationDto): Promise<EmployeeEntity[]> {
+        return this.repository.findAll(pagination);
     }
 
     async findById(id: string): Promise<EmployeeEntity | null> {

@@ -4,19 +4,10 @@ import { applyDecorators } from '@nestjs/common';
 export function EmployeeContractApi() {
     return applyDecorators(
         ApiTags('Employee'),
-        ApiHeader({
-            name: 'Empresa',
-            description: 'Endpoints para a manipulação de funcionários cadastrados no sistema.',
-        }),
-        ApiForbiddenResponse({ description: 'Acesso negado ao endpoint.' }),
     )
 }
 export function CreateEmployeeDoc() {
     return applyDecorators(
-        ApiHeader({
-            name: 'Registro de Funcionários',
-            description: 'Endpoint para o registro de funcionários no sistema.',
-        }),ApiTags('Employee'),
         ApiOperation({
             summary: 'Criação de funcionário',
             description: 'Cria um novo funcionário no sistema.',
@@ -110,11 +101,6 @@ export function CreateEmployeeDoc() {
 
 export function UpdateEmployeeDoc(){
     return applyDecorators(
-        ApiHeader({
-            name: 'Atualização de Funcionários',
-            description: 'Endpoint de atualização de funcionários no sistema.',
-        }),
-        ApiTags('Employee'),
         ApiOperation({
             summary: 'Atualização de funcionário',
             description: 'Atualiza um funcionário existente no sistema.',

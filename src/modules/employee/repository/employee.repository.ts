@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { CreateEmployeeDto } from '../dto/create-employee.dto';
 import { UpdateEmployeeDto } from '../dto/update-employee.dto';
 import { CompanyEntity } from 'src/modules/entities/company.entity';
+import { PaginationDto } from 'src/modules/dto/pagination/pagination-dto';
 
 @Injectable()
 export class EmployeeRepository {
@@ -25,12 +26,12 @@ export class EmployeeRepository {
 
     /**
      * @description Método para listar todos os funcionários
-     * @param page 
-     * @param limit 
+     * @param pagination - objeto com informações de paginação
      * @returns EmployeeEntity[] - retorna um array de funcionários
      */
-    async findAll(page: number, limit: number): Promise<EmployeeEntity[]> {
-        const skip = (page - 1) * limit;
+    async findAll(pagination?:PaginationDto): Promise<EmployeeEntity[]> {
+        const skip =  pagination?.page ? (pagination.page - 1) * (pagination.limit || 10) : undefined;
+        const limit = pagination?.limit;
 
         return this.employeeRepository.find({
             skip,
