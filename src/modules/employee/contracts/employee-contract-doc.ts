@@ -18,7 +18,7 @@ export function CreateEmployeeDoc() {
             schema: {
                 type: 'object',
                 properties: {
-                    name: { type: 'string', example: 'Kazuma Kuwabara' },
+                    nome: { type: 'string', example: 'Kazuma Kuwabara' },
                     email: { type: 'string', example: 'Kazuma@ghost.com'},
                     cpf: { type: 'string', example: '123.456.789-00'},
                     phone: { type: 'string', example: '(11) 99999-9999'},
@@ -44,7 +44,7 @@ export function CreateEmployeeDoc() {
                 type: 'object',
                 properties: {
                     id: { type: 'string', example: 'fa3b71ab-6b6b-5067-a9df-2f9d4a25cf98' },
-                    name: { type: 'string', example: 'Kazuma Kuwabara' },
+                    nome: { type: 'string', example: 'Kazuma Kuwabara' },
                     email: { type: 'string', example: '' },
                     cpf: { type: 'string', example: '123.456.789-00' },
                     phone: { type: 'string', example: '(11) 99999-9999' },
@@ -120,7 +120,7 @@ export function UpdateEmployeeDoc(){
             schema: {
                 type: 'object',
                 properties: {
-                    name: { type: 'string', example: 'Kazuma Kuwabara' },
+                    nome: { type: 'string', example: 'Kazuma Kuwabara' },
                     email: { type: 'string', example: 'kazuma@ghost.com' },
                     cpf: { type: 'string', example: '123.456.789-00' },
                     phone: { type: 'string', example: '(11) 99999-9999' },
@@ -145,7 +145,7 @@ export function UpdateEmployeeDoc(){
                 type: 'object',
                 properties: {
                     id: { type: 'string', example: 'fa3b71ab-6b6b-5067-a9df-2f9d4a25cf98' },
-                    name: { type: 'string', example: 'Kazuma Kuwabara' },
+                    nome: { type: 'string', example: 'Kazuma Kuwabara' },
                     email: { type: 'string', example: 'kazuma@ghost.com' },
                     cpf: { type: 'string', example: '123.456.789-00' },
                     phone: { type: 'string', example: '(11) 99999-9999' },

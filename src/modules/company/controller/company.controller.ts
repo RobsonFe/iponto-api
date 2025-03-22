@@ -18,12 +18,13 @@ import { CompanyService } from '../service/company.service';
 import { CreateCompanyDto } from '../dto/create-company.dto';
 import { CompanyEntity } from 'src/modules/entities/company.entity';
 import { UpdateCompanyDto } from '../dto/update-company.dto';
-import { CompanyContractApi, CountCompaniesDoc, CreateCompanyDoc, DeleteCompanyDoc, FindAllCompaniesDoc, FindCompanyByIdDoc, UpdateCompanyDoc } from '../contracts/company-contract-api';
+import { CompanyContractApi, CountCompaniesDoc, CreateCompanyDoc, DeleteCompanyDoc, FindAllCompaniesDoc, FindCompanyByIdDoc, UpdateCompanyDoc } from '../contracts/company-contract-doc';
 import { PaginationDto } from 'src/modules/dto/pagination/pagination-dto';
+import { CompanyContract } from '../contracts/company-contract';
 
 @Controller('company')
 @CompanyContractApi()
-export class CompanyController {
+export class CompanyController implements CompanyContract {
     constructor(private readonly service: CompanyService) {}
 
     @Post('save')

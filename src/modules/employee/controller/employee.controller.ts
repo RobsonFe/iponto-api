@@ -20,12 +20,13 @@ import { EmployeeService } from '../service/employee.service';
 import { CreateEmployeeDto } from '../dto/create-employee.dto';
 import { EmployeeEntity } from 'src/modules/entities/employee.entity';
 import { EMPLOYEE_EXCEPTIONS } from '../constants/exceptions';
-import { CreateEmployeeDoc, EmployeeContractApi, UpdateEmployeeDoc } from '../contracts/employee-contract-api';
+import { CreateEmployeeDoc, EmployeeContractApi, UpdateEmployeeDoc } from '../contracts/employee-contract-doc';
 import { PaginationDto } from 'src/modules/dto/pagination/pagination-dto';
+import { EmployeeContract } from '../contracts/employee-contract';
 
 @Controller('employee')
 @EmployeeContractApi()
-export class EmployeeController {
+export class EmployeeController implements EmployeeContract {
     constructor(private readonly service: EmployeeService) {}
 
     @Post('save')
