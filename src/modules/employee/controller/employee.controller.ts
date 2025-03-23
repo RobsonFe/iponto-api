@@ -20,7 +20,7 @@ import { EmployeeService } from '../service/employee.service';
 import { CreateEmployeeDto } from '../dto/create-employee.dto';
 import { EmployeeEntity } from 'src/modules/entities/employee.entity';
 import { EMPLOYEE_EXCEPTIONS } from '../constants/exceptions';
-import { CreateEmployeeDoc, EmployeeContractApi, UpdateEmployeeDoc } from '../contracts/employee-contract-doc';
+import { CountEmployeesDoc, CreateEmployeeDoc, DeleteEmployeeDoc, EmployeeContractApi, FindAllEmployeesDoc, FindEmployeeByIdDoc, UpdateEmployeeDoc } from '../contracts/employee-contract-doc';
 import { PaginationDto } from 'src/modules/dto/pagination/pagination-dto';
 import { EmployeeContract } from '../contracts/employee-contract';
 
@@ -46,6 +46,7 @@ export class EmployeeController implements EmployeeContract {
 
     @Get('list')
     @HttpCode(HttpStatus.OK)
+    @FindAllEmployeesDoc()
     async findAll(
         @Query() pagination:PaginationDto
     ): Promise<EmployeeEntity[]> {
@@ -58,6 +59,7 @@ export class EmployeeController implements EmployeeContract {
 
     @Get('find/:id')
     @HttpCode(HttpStatus.OK)
+    @FindEmployeeByIdDoc()
     async findById(@Query('id') id: string): Promise<EmployeeEntity | null> {
         try {
             return this.service.findById(id);
@@ -79,6 +81,7 @@ export class EmployeeController implements EmployeeContract {
 
     @Delete('delete/:id')
     @HttpCode(HttpStatus.NO_CONTENT)
+    @DeleteEmployeeDoc()
     async delete(@Param('id') id: string): Promise<void> {
         try {
             return this.service.delete(id);
@@ -89,6 +92,7 @@ export class EmployeeController implements EmployeeContract {
 
     @Get('count')
     @HttpCode(HttpStatus.OK)
+    @CountEmployeesDoc()
     async count(): Promise<number> {
         try {
             return this.service.count();
