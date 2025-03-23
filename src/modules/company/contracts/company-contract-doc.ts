@@ -1,5 +1,6 @@
 import { applyDecorators } from '@nestjs/common';
-import { ApiBody, ApiForbiddenResponse, ApiHeader, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { CreateCompanyDto } from '../dto/create-company.dto';
 
 export function CompanyContractApi() {
   return applyDecorators(
@@ -10,30 +11,7 @@ export function CompanyContractApi() {
 export function CreateCompanyDoc() {
     return applyDecorators(
       ApiOperation({ summary: 'Registra uma empresa no sistema.' }),
-      ApiBody({
-        schema: {
-          type: 'object',
-          properties: {
-            nome: { type: 'string', example: 'Maze Bank' },
-            cnpj: { type: 'string', example: '16.365.666/0001-88' },
-            email: { type: 'string', example: 'mazebank@email.com' },
-            phone: { type: 'string', example: '5581988881111' },
-            site: { type: 'string', example: 'www.mazebank.com' },
-            endereco: {
-              type: 'object',
-              properties: {
-                rua: { type: 'string', example: 'Liberty City Avenue' },
-                numero: { type: 'string', example: '123' },
-                bairro: { type: 'string', example: 'Algonquin' },
-                cidade: { type: 'string', example: 'Liberty City' },
-                estado: { type: 'string', example: 'Liberty State' },
-                cep: { type: 'string', example: '00000-000' },
-              },
-            },
-          },
-          required: ['nome', 'cnpj', 'email', 'phone', 'endereco'],
-        },
-      }),
+      ApiBody({ type: CreateCompanyDto }),
       ApiResponse({
         status: 201,
         description: 'Empresa Registrada com sucesso!',
