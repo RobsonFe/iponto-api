@@ -18,41 +18,47 @@ No sistema web da empresa, haverá uma sessão de dashboard com o objetivo de an
 - PostgreSQL
 - API do DeepSeek
 
-## _Instalação_
+## **Instalação**
 
-- inicie Ambiente Virtual venv
+- inicie Ambiente Virtual `venv`
 
-bash
-python -m venv .venv
+```bash
+python -m venv venv
+```
 
-_Ative o ambiente virtual_:
+**Ative o ambiente virtual**:
 
 - No Windows (cmd.exe):
 
-  sh
+  ```sh
   venv\Scripts\activate.bat
+  ```
 
 - No Windows (PowerShell):
 
-  sh
+  ```sh
   venv\Scripts\Activate.ps1
+  ```
 
 - No Git Bash ou Linux/Mac:
 
-  sh
+  ```sh
   source venv/Scripts/activate
+  ```
 
-Para instalar todas as ferramentas necessárias, basta utilizar o requirements.txt.
+Para instalar todas as ferramentas necessárias, basta utilizar o `requirements.txt`.
 
-python
+```python
 pip install -r requirements.txt
+```
 
-## Deixei um .env.example para você configurar suas variáveis de ambiente.
+## Deixei um `.env` para você configurar suas variáveis de ambiente.
 
 ## Endpoints
 
-py
+```py
 pass # Em breve
+```
 
 ## Autor do Projeto:
 
