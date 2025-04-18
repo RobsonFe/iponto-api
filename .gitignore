@@ -1,0 +1,93 @@
+# Python
+_pycache_/
+*.py[cod]
+*.pyo
+*.pyd
+*$py.class
+
+# Ambiente virtual
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+myvenv/
+
+# VSCode
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Arquivos de ambiente (.env)
+.env
+.env.*
+!*.env.example 
+.env.local
+.env.development
+.env.production
+.env.test
+.env.staging
+.env.testing
+.env.development.local
+.env.production.local
+.env.test.local
+.env.staging.local
+.env.testing.local
+.env.local.example
+.env.development.example
+.env.*
+
+
+# IDEs
+.idea/
+*.sublime-workspace
+.project
+.classpath
+.settings/
+.c9/
+*.launch
+
+# Arquivos temporários / Logs
+*.log
+*.pot
+*.seed
+*.pid
+*.pid.lock
+*.sqlite3
+*.bak
+*.tmp
+.temp
+.DS_Store
+Thumbs.db
+
+# Django specific
+local_settings.py
+db.sqlite3
+media/
+
+# Testes
+.pytest_cache/
+coverage/
+htmlcov/
+.tox/
+.nox/
+
+# Node (se for usar em algum momento, como com Tailwind ou build de assets)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Arquivos específicos do seu projeto
+planilhas/*
+!planilhas/.gitkeep
+mock/
+teste.py
+~$2662A420.xlsx
+2662A420.xlsx
+
+# Bytecode gerado (evitar subir arquivos gerados automaticamente)
+iponto/_pycache_/
