@@ -38,7 +38,6 @@ myvenv/
 .env.testing.local
 .env.local.example
 .env.development.example
-.env.*
 
 
 # IDEs
