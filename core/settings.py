@@ -29,7 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# AUTH_USER_MODEL = 'api.User'
+AUTH_USER_MODEL = "api.CustomUser"
 
 # Application definition
 
@@ -183,7 +183,7 @@ SIMPLE_JWT = {
     'UPDATE_LAST_LOGIN': True,
     'ALGORITHM': 'HS256',
     'AUTH_HEADER_TYPES': ('Bearer',),
-    'AUTH_USER_MODEL': 'api.User',
+    'AUTH_USER_MODEL': 'api.CustomUser', 
     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
     'USER_ID_FIELD': 'id',
     'USER_ID_CLAIM': 'user_id',
