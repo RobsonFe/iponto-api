@@ -1,6 +1,5 @@
-from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.contrib.auth.models import AbstractUser, BaseUserManager, Group, Permission
 from django.db import models
-import uuid
 
 class CustomUserManager(BaseUserManager):
     def create_master_user(self, username, name, email,cpf, password=None, **extra_fields):
@@ -23,14 +22,29 @@ class CustomUserManager(BaseUserManager):
         if not email:
             raise ValueError('O email deve ser fornecido')
         
+        # Dividir o nome completo em partes
+        name_parts = name.split()
+        
+        # Atribuir primeiro nome
+        first_name = name_parts[0] if name_parts else ""
+        
+        # Atribuir último nome (pode ser vazio se o nome tiver apenas uma parte)
+        last_name = " ".join(name_parts[1:]) if len(name_parts) > 1 else ""
+        
         email = self.normalize_email(email)
-        user = self.model(username=username, name=name, email=email, cpf=cpf, **extra_fields)
+        user = self.model(
+            username=username,
+            name=name, 
+            email=email, 
+            cpf=cpf, 
+            first_name=first_name, 
+            last_name=last_name,
+            **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
 
 class CustomUser(AbstractUser):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     username = models.CharField(max_length=150, unique=True)
     name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
@@ -42,6 +56,23 @@ class CustomUser(AbstractUser):
     is_master = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
+    
+    groups = models.ManyToManyField(
+        Group,
+        verbose_name='grupos',
+        blank=True,
+        related_name='customuser_set',  
+        related_query_name='customuser',
+        help_text='Os grupos aos quais este usuário pertence. Um usuário receberá todas as permissões concedidas a cada um de seus grupos.',
+    )
+    user_permissions = models.ManyToManyField(
+        Permission,
+        verbose_name='user permissions',
+        blank=True,
+        related_name='customuser_set', 
+        related_query_name='customuser',
+        help_text='As permissões específicas concedidas a este usuário.',
+    )
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['name', 'cpf', 'email']
