@@ -22,7 +22,7 @@ class UserCreateSwaggerMixin:
                             OpenApiExample(
                                 name="Exemplo de resposta de sucesso",
                                 value={
-                                    "id": "e297423e-e14b-41e0-afd6-579b55614b3b",
+                                    "id": 1,
                                     "is_superuser": True,
                                     "first_name": "Clint",
                                     "last_name": "Eastwood",

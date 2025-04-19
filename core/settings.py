@@ -208,6 +208,7 @@ SPECTACULAR_SETTINGS = {
     },
     'SCHEMA_COERCE_PATH_PK_SUFFIX': True,
     'TAGS': [
+        {'name': 'Autenticação', 'description': 'Configurações referentes a autenticação e autorização'},
         {'name': 'Usuário', 'description': 'Configurações referentes aos usuários do sistema'},
     ],
     'SORT_OPERATIONS': False,  

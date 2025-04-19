@@ -10,7 +10,9 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 
-class LoginView(TokenObtainPairView):
+from api.swagger.authentication_mixin_swagger import LogoutSwaggerMixin, MyTokenObtainPairSwaggerMixin
+
+class LoginView(MyTokenObtainPairSwaggerMixin,TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
     def post(self, request, *args, **kwargs):
@@ -43,14 +45,6 @@ class LoginView(TokenObtainPairView):
             return Response({
                 'access': str(refresh.access_token),
                 'refresh': str(refresh),
-                'user': {
-                    'id': user.id,
-                    'username': user.username,
-                    'email': user.email,
-                    'name': user.name,
-                    'cpf' : user.cpf,
-                    'is_master': user.is_master,
-                }
             }, status=status.HTTP_200_OK)
 
         except Exception as e:
@@ -60,7 +54,7 @@ class LoginView(TokenObtainPairView):
             )
             
 
-class LogoutView(APIView):
+class LogoutView(LogoutSwaggerMixin,APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):

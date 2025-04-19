@@ -1,7 +1,7 @@
 from rest_framework import generics, permissions
 from api.model.Customuser import CustomUser
 from api.serializers import MasterUserSerializer
-from api.swagger.user_mixin import UserCreateSwaggerMixin
+from api.swagger.user_mixin_swagger import UserCreateSwaggerMixin
 
 class MasterUserCreateView(UserCreateSwaggerMixin,generics.CreateAPIView):
     queryset = CustomUser.objects.all()

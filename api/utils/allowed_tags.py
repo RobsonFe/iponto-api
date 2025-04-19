@@ -3,6 +3,7 @@ def filter_endpoints_by_allowed_tags(result, generator, request, public):
     Filtra endpoints que não possuem uma das tags permitidas.
     """
     allowed_tags = {
+        'Autenticação',
         'Usuário',
     }
 
