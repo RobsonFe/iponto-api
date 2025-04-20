@@ -1,6 +1,10 @@
 from .Customuser import CustomUser, CustomUserManager
+from .company_model import Company
+from .employee_model import Employee
 
 __All__ = [
     'CustomUser',
-    'CustomUserManager'
+    'CustomUserManager',
+    'Company',
+    'Employee'
 ]
