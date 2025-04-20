@@ -1,9 +1,15 @@
 from django.db import models
 from django.contrib.postgres.fields import JSONField
 import uuid
+from api.model.Customuser import CustomUser
 from api.model.company_model import Company
 class Employee(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.OneToOneField(
+        CustomUser, 
+        on_delete=models.CASCADE,
+        related_name='employee_profile'
+    )
     nome = models.CharField(max_length=255)
     cpf = models.CharField(max_length=14, unique=True)
     email = models.EmailField(unique=True)

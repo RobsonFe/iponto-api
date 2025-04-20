@@ -16,8 +16,8 @@ class MasterUserListView(generics.ListAPIView):
     serializer_class = MasterUserSerializer
     permission_classes = [permissions.IsAdminUser]
     
-    def list(self, request, *args, **kwargs):
-        return super().list(request, *args, **kwargs)
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
 
 class MasterUserUpdateView(generics.UpdateAPIView):
     queryset = CustomUser.objects.all()
