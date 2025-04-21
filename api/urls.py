@@ -1,5 +1,6 @@
 from django.urls import URLPattern, path
 from api.view.authentication_view import LoginView, LogoutView
+from api.view.employee_transferer_view import EmployeeTransferView
 from api.view.user_view import (
     MasterUserCreateView,
     MasterUserListView, 
@@ -41,6 +42,7 @@ url_employee:list[URLPattern]=[
     path('employee/user/<int:pk>/', EmployeeUserDetailView.as_view(), name='Detalhes Usuário Employee'),
     path('employee/user/update/<int:pk>', EmployeeUserUpdateView.as_view(), name='Atualizar Usuário Employee'),
     path('employee/user/delete/<int:pk>', EmployeeUserDeleteView.as_view(), name='Deletar Usuário Employee'),
+    path('employee/transfer/<uuid:id>/', EmployeeTransferView.as_view(), name='Transferir Funcionário'),
 ]
 
 urlpatterns = url_auth + url_master + url_company + url_employee

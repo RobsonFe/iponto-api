@@ -1,4 +1,6 @@
 from .user_view import MasterUserCreateView
+from .employee_transferer_view import EmployeeTransferView
+
 from .authentication_view import (
   LoginView, 
   LogoutView
@@ -19,6 +21,7 @@ from .employee_view import (
     EmployeeUserDeleteView
 )
 
+
 __All__ = [
   'MasterUserCreateView',
   'LoginView',
@@ -32,5 +35,6 @@ __All__ = [
   'EmployeeUserListView',
   'EmployeeUserDetailView',
   'EmployeeUserUpdateView',
-  'EmployeeUserDeleteView'
+  'EmployeeUserDeleteView',
+  'EmployeeTransferView'
 ]
