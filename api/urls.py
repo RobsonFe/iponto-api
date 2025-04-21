@@ -1,6 +1,11 @@
 from django.urls import URLPattern, path
 from api.view.authentication_view import LoginView, LogoutView
-from api.view.user_view import MasterUserCreateView
+from api.view.user_view import (
+    MasterUserCreateView,
+    MasterUserListView, 
+    MasterUserUpdateView, 
+    MasterUserDeleteView
+    )
 from api.view.company_view import (
     CompanyUserCreateView, CompanyUserListView, 
     CompanyUserDetailView, CompanyUserUpdateView, CompanyUserDeleteView
@@ -17,6 +22,7 @@ url_auth:list[URLPattern]=[
 
 url_master:list[URLPattern]=[
     path('user/create/master', MasterUserCreateView.as_view(), name='Criar Usuário Master'),
+    path('user/list/master', MasterUserListView.as_view(), name='Listar Usuários Master'),
 ]
 
 url_company:list[URLPattern]=[
