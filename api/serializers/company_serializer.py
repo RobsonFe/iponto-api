@@ -10,16 +10,21 @@ class CompanyUserSerializer(serializers.ModelSerializer):
     site = serializers.URLField(required=False, allow_blank=True, allow_null=True, write_only=True)
     endereco = serializers.JSONField(required=False, default=dict, write_only=True)
     
+    company_id = serializers.SerializerMethodField(read_only=True)
     company_phone = serializers.SerializerMethodField(read_only=True)
     company_site = serializers.SerializerMethodField(read_only=True)
     company_endereco = serializers.SerializerMethodField(read_only=True)
     class Meta:
         model = CustomUser
         fields = ('id', 'username', 'password', 'email', 'name', 'cnpj',
-                 'phone', 'site', 'endereco',
-                 'company_phone', 'company_site', 'company_endereco')
+                 'phone', 'site', 'endereco','company_id','company_phone', 'company_site', 'company_endereco')
         extra_kwargs = {'password': {'write_only': True}}
         
+    def get_company_id(self, obj):
+        if hasattr(obj, 'company_profile'):
+            return str(obj.company_profile.id)
+        return None
+    
     def get_company_phone(self, obj):
         if hasattr(obj, 'company_profile'):
             return obj.company_profile.phone

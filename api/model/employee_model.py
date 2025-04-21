@@ -10,9 +10,6 @@ class Employee(models.Model):
         on_delete=models.CASCADE,
         related_name='employee_profile'
     )
-    nome = models.CharField(max_length=255)
-    cpf = models.CharField(max_length=14, unique=True)
-    email = models.EmailField(unique=True)
     phone = models.CharField(max_length=20)
     linkedin = models.URLField(max_length=255, null=True, blank=True)
     endereco = models.JSONField(
@@ -27,4 +24,4 @@ class Employee(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.nome
+        return self.user.username

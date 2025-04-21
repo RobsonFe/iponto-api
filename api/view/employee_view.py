@@ -1,4 +1,5 @@
 from rest_framework import generics, permissions, filters
+from api import serializers
 from api.model.Customuser import CustomUser
 from api.serializers.employee_serializer import EmployeeUserSerializer
 from api.permissions import IsMasterUser, IsCompanyUser, IsCompanyEmployeeOwnerOrMaster
@@ -8,22 +9,43 @@ from api.model.company_model import Company
 class EmployeeUserCreateView(generics.CreateAPIView):
     queryset = CustomUser.objects.filter(is_employee=True)
     serializer_class = EmployeeUserSerializer
-    permission_classes = [permissions.IsAuthenticated, IsCompanyUser]
+    permission_classes = [permissions.IsAuthenticated]
+    
+    def check_permissions(self, request):
+        super().check_permissions(request)
+        
+        # Verificar se o usuário é master ou empresa
+        if not (request.user.is_master or request.user.is_company):
+            self.permission_denied(
+                request, 
+                message="Apenas empresas ou administradores podem criar funcionários.",
+                code="permission_denied"
+            )
     
     def perform_create(self, serializer):
-        # Se o usuário for uma empresa, só pode criar funcionários para sua própria empresa
+        # Se for empresa, valida se está criando para sua própria empresa
         if self.request.user.is_company:
-            company = get_object_or_404(Company, user=self.request.user)
-            serializer.save(company_id=company.id)
-        else:
-            serializer.save()
+            try:
+                company = Company.objects.get(user=self.request.user)
+                company_id = serializer.validated_data.get('company_id')
+                
+                if str(company.id) != str(company_id):
+                    raise serializers.ValidationError(
+                        {"company_id": "Você só pode criar funcionários para sua própria empresa"}
+                    )
+            except Company.DoesNotExist:
+                raise serializers.ValidationError(
+                    {"error": "Seu perfil de empresa não foi encontrado"}
+                )
+        
+        serializer.save()
     
     def post(self, request, *args, **kwargs):
         return super().post(request, *args, **kwargs)
 
 class EmployeeUserListView(generics.ListAPIView):
     serializer_class = EmployeeUserSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, IsCompanyEmployeeOwnerOrMaster]
     filter_backends = [filters.SearchFilter]
     search_fields = ['username', 'name', 'email', 'employee_profile__nome']
     

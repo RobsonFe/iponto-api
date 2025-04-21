@@ -39,8 +39,8 @@ url_employee:list[URLPattern]=[
     path('employee/user/create/', EmployeeUserCreateView.as_view(), name='Criar Usuário Employee'),
     path('employee/users/', EmployeeUserListView.as_view(), name='Listar Usuários Employee'),
     path('employee/user/<int:pk>/', EmployeeUserDetailView.as_view(), name='Detalhes Usuário Employee'),
-    path('employee/user/<int:pk>/update/', EmployeeUserUpdateView.as_view(), name='Atualizar Usuário Employee'),
-    path('employee/user/<int:pk>/delete/', EmployeeUserDeleteView.as_view(), name='Deletar Usuário Employee'),
+    path('employee/user/update/<int:pk>', EmployeeUserUpdateView.as_view(), name='Atualizar Usuário Employee'),
+    path('employee/user/delete/<int:pk>', EmployeeUserDeleteView.as_view(), name='Deletar Usuário Employee'),
 ]
 
 urlpatterns = url_auth + url_master + url_company + url_employee

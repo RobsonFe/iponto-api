@@ -55,3 +55,11 @@ class IsCompanyEmployeeOwnerOrMaster(permissions.BasePermission):
             return obj.company.id == request.user.company_profile.id
             
         return False
+class IsCompanyUserOrMaster(permissions.BasePermission):
+    """
+    Permite acesso a usuários company OU master.
+    """
+    def has_permission(self, request, view):
+        is_company = request.user and request.user.is_authenticated and request.user.is_company
+        is_master = request.user and request.user.is_authenticated and request.user.is_master
+        return is_company or is_master
