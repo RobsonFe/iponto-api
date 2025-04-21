@@ -66,8 +66,7 @@ class CompanyUserSerializer(serializers.ModelSerializer):
         
     def update(self, instance, validated_data):
         company_data = {}
-        if 'name' in validated_data:
-            company_data['nome'] = validated_data.pop('name')
+        
         if 'cnpj' in validated_data:
             company_data['cnpj'] = validated_data.pop('cnpj')
         if 'phone' in validated_data:
