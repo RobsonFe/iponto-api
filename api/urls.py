@@ -31,8 +31,8 @@ url_company:list[URLPattern]=[
     path('company/user/create/', CompanyUserCreateView.as_view(), name='Criar Usuário Company'),
     path('company/users/', CompanyUserListView.as_view(), name='Listar Usuários Company'),
     path('company/user/<int:pk>/', CompanyUserDetailView.as_view(), name='Detalhes Usuário Company'),
-    path('company/user/<int:pk>/update/', CompanyUserUpdateView.as_view(), name='Atualizar Usuário Company'),
-    path('company/user/<int:pk>/delete/', CompanyUserDeleteView.as_view(), name='Deletar Usuário Company'),
+    path('company/user/update/<int:pk>', CompanyUserUpdateView.as_view(), name='Atualizar Usuário Company'),
+    path('company/user/delete/<int:pk>', CompanyUserDeleteView.as_view(), name='Deletar Usuário Company'),
 ]
 
 url_employee:list[URLPattern]=[

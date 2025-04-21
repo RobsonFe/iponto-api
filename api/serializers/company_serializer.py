@@ -4,32 +4,55 @@ from api.model.company_model import Company
 from django.db import transaction
 
 class CompanyUserSerializer(serializers.ModelSerializer):
-    nome = serializers.CharField(required=True)
+    name = serializers.CharField(required=True)
     cnpj = serializers.CharField(required=True)
-    phone = serializers.CharField(required=True)
-    site = serializers.URLField(required=False, allow_blank=True, allow_null=True)
-    endereco = serializers.JSONField(required=False, default=dict)
+    phone = serializers.CharField(required=True, write_only=True)
+    site = serializers.URLField(required=False, allow_blank=True, allow_null=True, write_only=True)
+    endereco = serializers.JSONField(required=False, default=dict, write_only=True)
     
+    company_phone = serializers.SerializerMethodField(read_only=True)
+    company_site = serializers.SerializerMethodField(read_only=True)
+    company_endereco = serializers.SerializerMethodField(read_only=True)
     class Meta:
         model = CustomUser
-        fields = ('id', 'username', 'password', 'email', 'name', 'cpf', 'nome', 
-                  'cnpj', 'phone', 'site', 'endereco')
+        fields = ('id', 'username', 'password', 'email', 'name', 'cnpj',
+                 'phone', 'site', 'endereco',
+                 'company_phone', 'company_site', 'company_endereco')
         extra_kwargs = {'password': {'write_only': True}}
+        
+    def get_company_phone(self, obj):
+        if hasattr(obj, 'company_profile'):
+            return obj.company_profile.phone
+        return None
+    
+    def get_company_site(self, obj):
+        if hasattr(obj, 'company_profile'):
+            return obj.company_profile.site
+        return None
+    
+    def get_company_endereco(self, obj):
+        if hasattr(obj, 'company_profile'):
+            return obj.company_profile.endereco
+        return {}
         
     @transaction.atomic
     def create(self, validated_data):
         # Extrair dados da empresa
         company_data = {
-            'nome': validated_data.pop('nome'),
             'cnpj': validated_data.pop('cnpj'),
-            'email': validated_data.get('email'), 
             'phone': validated_data.pop('phone'),
             'site': validated_data.pop('site', None),
             'endereco': validated_data.pop('endereco', {})
         }
         
-        # Criar o usuário
-        user = CustomUser.objects.create_company_user(**validated_data)
+        cnpj = company_data['cnpj'] # Dado obrigatório para empresas
+        user = CustomUser.objects.create_company_user(
+            username=validated_data.get('username'),
+            name=validated_data.get('name'),
+            email=validated_data.get('email'),
+            password=validated_data.get('password'),
+            cnpj=cnpj
+        )
         
         # Criar a empresa associada ao usuário
         Company.objects.create(user=user, **company_data)
@@ -38,8 +61,8 @@ class CompanyUserSerializer(serializers.ModelSerializer):
         
     def update(self, instance, validated_data):
         company_data = {}
-        if 'nome' in validated_data:
-            company_data['nome'] = validated_data.pop('nome')
+        if 'name' in validated_data:
+            company_data['nome'] = validated_data.pop('name')
         if 'cnpj' in validated_data:
             company_data['cnpj'] = validated_data.pop('cnpj')
         if 'phone' in validated_data:

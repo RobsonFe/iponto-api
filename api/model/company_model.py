@@ -10,9 +10,7 @@ class Company(models.Model):
         on_delete=models.CASCADE,
         related_name='company_profile'
     )
-    nome = models.CharField(max_length=255)
     cnpj = models.CharField(max_length=20, unique=True)
-    email = models.EmailField(unique=True)
     phone = models.CharField(max_length=20)
     site = models.URLField(max_length=255, null=True, blank=True)
     endereco = models.JSONField(
@@ -25,4 +23,4 @@ class Company(models.Model):
         verbose_name_plural = "Companies"
 
     def __str__(self):
-        return self.nome
+        return self.cnpj

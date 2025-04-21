@@ -35,6 +35,7 @@ class CustomUserManager(BaseUserManager):
         return self._create_user(username, name, email, cpf, password, **extra_fields)
     
     def _create_user(self, username, name, email, documento=None, password=None, **extra_fields):
+        
         if not username:
             raise ValueError('O nome de usuário deve ser fornecido')
         
