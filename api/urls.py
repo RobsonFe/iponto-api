@@ -23,6 +23,8 @@ url_auth:list[URLPattern]=[
 url_master:list[URLPattern]=[
     path('user/create/master', MasterUserCreateView.as_view(), name='Criar Usuário Master'),
     path('user/list/master', MasterUserListView.as_view(), name='Listar Usuários Master'),
+    path('user/update/master/<int:pk>', MasterUserUpdateView.as_view(), name='Atualizar Usuário Master'),
+    path('user/delete/master/<int:pk>', MasterUserDeleteView.as_view(), name='Deletar Usuário Master'),
 ]
 
 url_company:list[URLPattern]=[
