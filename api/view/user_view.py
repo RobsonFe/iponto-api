@@ -1,5 +1,5 @@
 from rest_framework import generics, permissions
-from api.model.Customuser import CustomUser
+from api.model.customuser import CustomUser
 from api.serializers import MasterUserSerializer
 from api.swagger.user_mixin_swagger import UserCreateSwaggerMixin
 

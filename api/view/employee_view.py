@@ -1,6 +1,6 @@
 from rest_framework import generics, permissions, filters
 from api import serializers
-from api.model.Customuser import CustomUser
+from api.model.customuser import CustomUser
 from api.serializers.employee_serializer import EmployeeUserSerializer
 from api.permissions import IsMasterUser, IsCompanyUser, IsCompanyEmployeeOwnerOrMaster
 from django.shortcuts import get_object_or_404

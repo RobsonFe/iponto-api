@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from api.model.Customuser import CustomUser
+from api.model.customuser import CustomUser
 from api.model.employee_model import Employee
 from api.model.company_model import Company
 from django.db import transaction

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from api.model.Customuser import CustomUser
+from api.model.customuser import CustomUser
 
 # Registro básico
 @admin.register(CustomUser)

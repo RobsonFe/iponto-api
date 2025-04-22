@@ -1,5 +1,5 @@
 from rest_framework import generics, permissions
-from api.model.Customuser import CustomUser
+from api.model.customuser import CustomUser
 from api.permissions import IsMasterUser, IsCompanyOwnerOrMaster
 from api.serializers.company_serializer import CompanyUserSerializer
 

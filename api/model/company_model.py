@@ -1,7 +1,8 @@
 from django.db import models
 from django.contrib.postgres.fields import JSONField
 import uuid
-from api.model.Customuser import CustomUser
+from api.model.customuser import CustomUser
+
 
 class Company(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

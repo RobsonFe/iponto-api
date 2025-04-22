@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from api.model.Customuser import CustomUser
 from api.model.company_model import Company
 from django.db import transaction
+from api.model.customuser import CustomUser
 
 class CompanyUserSerializer(serializers.ModelSerializer):
     name = serializers.CharField(required=True)

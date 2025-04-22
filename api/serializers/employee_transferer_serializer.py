@@ -1,5 +1,4 @@
 from rest_framework import serializers
-
 from api.model.company_model import Company
 
 class EmployeeTransferSerializer(serializers.Serializer):
