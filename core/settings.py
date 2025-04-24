@@ -208,6 +208,8 @@ SPECTACULAR_SETTINGS = {
     'TAGS': [
         {'name': 'Autenticação', 'description': 'Configurações referentes a autenticação e autorização'},
         {'name': 'Usuário', 'description': 'Configurações referentes aos usuários do sistema'},
+        {'name': 'Empresa', 'description': 'Configurações referentes às empresas do sistema'},
+        {'name': 'Funcionário', 'description': 'Configurações referentes aos funcionários do sistema'},
     ],
     'SORT_OPERATIONS': False,  
     'ENUM_NAME_OVERRIDES': {},  

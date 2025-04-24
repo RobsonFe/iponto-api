@@ -2,8 +2,7 @@ from rest_framework import generics, permissions, filters
 from api import serializers
 from api.model.customuser import CustomUser
 from api.serializers.employee_serializer import EmployeeUserSerializer
-from api.permissions import IsMasterUser, IsCompanyUser, IsCompanyEmployeeOwnerOrMaster
-from django.shortcuts import get_object_or_404
+from api.permissions import IsCompanyEmployeeOwnerOrMaster
 from api.model.company_model import Company
 
 class EmployeeUserCreateView(generics.CreateAPIView):

@@ -15,6 +15,7 @@ class MasterUserCreateSwaggerMixin:
         if hasattr(cls, "post"):
             cls.post = extend_schema(
                 tags=["Usuário"],
+                auth=[{"Bearer": []}],
                 summary="Cria um usuário",
                 methods=["POST"],
                 description="Faz o cadastro de um novo usuário no sistema.",
@@ -80,9 +81,9 @@ class MasterUserListSwaggerMixin:
         if hasattr(cls, "get"):
             cls.get = extend_schema(
                 tags=["Usuário"],
+                auth=[{"Bearer": []}],
                 description="Lista todos os usuários master do sistema.",
                 summary="Lista todos os usuários.",
-                auth=[{"Bearer": []}],
                 methods=["GET"],
                 responses={
                     200: OpenApiResponse(
@@ -173,9 +174,9 @@ class MasterUserUpdateSwaggerMixin:
         if hasattr(cls, "patch"):
             cls.patch = extend_schema(
                 tags=["Usuário"],
+                auth=[{"Bearer": []}],
                 description="Atualiza o usuário master.",
                 summary="Atualiza o usuário.",
-                auth=[{"Bearer": []}],
                 methods=["PATCH"],
                 parameters=[
                     OpenApiParameter(
@@ -270,9 +271,9 @@ class MasterUserDeleteSwaggerMixin:
             if hasattr(cls, "delete"):
                 cls.delete = extend_schema(
                     tags=["Usuário"],
+                    auth=[{"Bearer": []}],
                     description="Deleta o usuário master.",
                     summary="Deleta o usuário.",
-                    auth=[{"Bearer": []}],
                     methods=["DELETE"],
                     parameters=[
                         OpenApiParameter(
