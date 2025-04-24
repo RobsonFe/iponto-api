@@ -1,12 +1,13 @@
-from rest_framework import generics, permissions, status
+from rest_framework import generics, permissions
 from rest_framework.response import Response
 from api.model.employee_model import Employee
 from api.permissions.permissions import IsMasterUser
 from api.serializers.employee_transferer_serializer import EmployeeTransferSerializer
+from api.swagger.employee_mixin_swagger import EmployeeTransferSwaggerMixin
 
 
 
-class EmployeeTransferView(generics.UpdateAPIView):
+class EmployeeTransferView(EmployeeTransferSwaggerMixin,generics.UpdateAPIView):
     queryset = Employee.objects.all()
     serializer_class = EmployeeTransferSerializer
     permission_classes = [permissions.IsAuthenticated, IsMasterUser]
