@@ -17,6 +17,13 @@ from .company_mixin_swagger import (
     CompanyUserDeleteSwaggerMixin,
 )
 
+from .employee_mixin_swagger import (
+    EmployeeUserCreateSwaggerMixin,
+    EmployeeUserListSwaggerMixin,
+    EmployeeUserUpdateSwaggerMixin,
+    EmployeeUserDeleteSwaggerMixin,
+    EmployeeTransferSwaggerMixin,
+)
 
 __All__ = [
     "MyTokenObtainPairSwaggerMixin",
@@ -29,5 +36,10 @@ __All__ = [
     "CompanyUserListSwaggerMixin",
     "CompanyUserUpdateSwaggerMixin",
     "CompanyUserDeleteSwaggerMixin",
+    "EmployeeUserCreateSwaggerMixin",
+    "EmployeeUserListSwaggerMixin",
+    "EmployeeUserUpdateSwaggerMixin",
+    "EmployeeUserDeleteSwaggerMixin",
+    "EmployeeTransferSwaggerMixin",
     
 ]

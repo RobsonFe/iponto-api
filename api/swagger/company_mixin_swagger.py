@@ -108,7 +108,7 @@ class CompanyUserListSwaggerMixin:
                                             "previous": None,
                                             "results": [
                                                 {
-                                                    "id": 6,
+                                                    "id": 1,
                                                     "username": "abc",
                                                     "email": "contato@empresaabc.com",
                                                     "name": "Empresa ABC Ltda",
@@ -126,7 +126,7 @@ class CompanyUserListSwaggerMixin:
                                                     },
                                                 },
                                                 {
-                                                    "id": 8,
+                                                    "id": 2,
                                                     "username": "abc2",
                                                     "email": "contato2@empresaabc.com",
                                                     "name": "Empresa ABC Ltda2",
