@@ -66,6 +66,7 @@ class LogoutSwaggerMixin:
         if hasattr(cls, 'post'):
             cls.post = extend_schema(
                 tags=["Autenticação"],
+                auth=[{"Bearer": []}],
                 description="Desloga um usuário e invalida o token de atualização.",
                 summary="Desloga o usuário e invalida o token de atualização.",
                 request=OpenApiTypes.OBJECT,

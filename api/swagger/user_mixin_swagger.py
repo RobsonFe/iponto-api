@@ -28,21 +28,20 @@ class MasterUserCreateSwaggerMixin:
                             OpenApiExample(
                                 name="Exemplo de resposta de sucesso",
                                 value={
-                                    "id": 1,
-                                    "is_superuser": True,
-                                    "first_name": "Clint",
-                                    "last_name": "Eastwood",
-                                    "username": "clint",
-                                    "name": "Clint Eastwood",
-                                    "email": "clint@example.com",
-                                    "cpf": "02458695412",
-                                    "date_joined": "19-04-2025 11:51",
-                                    "last_login": "19-04-2025 11:51",
-                                    "created_at": "19-04-2025 11:51",
-                                    "updated_at": "19-04-2025 11:51",
-                                    "is_master": True,
-                                    "is_staff": True,
-                                    "is_active": True,
+                                    "message": "Usuário criado com sucesso",
+                                    "result": {
+                                        "id": 16,
+                                        "first_name": "Lemmy",
+                                        "last_name": "Kilmister",
+                                        "username": "lemmy",
+                                        "name": "Lemmy Kilmister",
+                                        "email": "motorhead@email.com",
+                                        "cpf": "12345678902",
+                                        "date_joined": "23-04-2025 22:43",
+                                        "created_at": "23-04-2025 22:43",
+                                        "is_superuser": True,
+                                        "is_master": True,
+                                    },
                                 },
                             )
                         ],
@@ -62,11 +61,11 @@ class MasterUserCreateSwaggerMixin:
                     OpenApiExample(
                         name="Exemplo de requisição",
                         value={
-                            "username": "clint",
-                            "name": "Clint Eastwood",
-                            "password": "robson123",
-                            "email": "clint@example.com",
-                            "cpf": "02458695412",
+                            "username": "lemmy",
+                            "name": "Lemmy Kilmister",
+                            "password": "lemmy123",
+                            "email": "motorhead@email.com",
+                            "cpf": "12345678902",
                         },
                     )
                 ],
@@ -263,62 +262,63 @@ class MasterUserUpdateSwaggerMixin:
                 ],
             )(cls.patch)
 
+
 class MasterUserDeleteSwaggerMixin:
-    
-        def __init_subclass__(cls, **kwargs):
-            super().__init_subclass__(**kwargs)
-    
-            if hasattr(cls, "delete"):
-                cls.delete = extend_schema(
-                    tags=["Usuário"],
-                    auth=[{"Bearer": []}],
-                    description="Deleta o usuário master.",
-                    summary="Deleta o usuário.",
-                    methods=["DELETE"],
-                    parameters=[
-                        OpenApiParameter(
-                            name="id",
-                            location=OpenApiParameter.PATH,
-                            type=OpenApiTypes.UUID,
-                            description="ID do usuário a ser deletado.",
-                            required=True,
-                        ),
-                    ],
-                    responses={
-                        204: OpenApiResponse(
-                            description="Usuário deletado com sucesso.",
-                            response=OpenApiTypes.OBJECT,
-                            examples=[
-                                OpenApiExample(
-                                    name="Exemplo de resposta de sucesso",
-                                    value={},
-                                    response_only=True,
-                                ),
-                            ],
-                        ),
-                        401: OpenApiResponse(
-                            description="Usuário não autorizado.",
-                            response=OpenApiTypes.OBJECT,
-                            examples=[
-                                OpenApiExample(
-                                    name="Usuário não autorizado",
-                                    value={
-                                        "detail": "Authentication credentials were not provided."
-                                    },
-                                    response_only=True,
-                                ),
-                            ],
-                        ),
-                        404: OpenApiResponse(
-                            description="Usuário não encontrado.",
-                            response=OpenApiTypes.OBJECT,
-                            examples=[
-                                OpenApiExample(
-                                    name="Usuário não encontrado",
-                                    value={"detail": "Usuário não encontrado."},
-                                    response_only=True,
-                                ),
-                            ],
-                        ),
-                    },
-                )(cls.delete)
+
+    def __init_subclass__(cls, **kwargs):
+        super().__init_subclass__(**kwargs)
+
+        if hasattr(cls, "delete"):
+            cls.delete = extend_schema(
+                tags=["Usuário"],
+                auth=[{"Bearer": []}],
+                description="Deleta o usuário master.",
+                summary="Deleta o usuário.",
+                methods=["DELETE"],
+                parameters=[
+                    OpenApiParameter(
+                        name="id",
+                        location=OpenApiParameter.PATH,
+                        type=OpenApiTypes.UUID,
+                        description="ID do usuário a ser deletado.",
+                        required=True,
+                    ),
+                ],
+                responses={
+                    204: OpenApiResponse(
+                        description="Usuário deletado com sucesso.",
+                        response=OpenApiTypes.OBJECT,
+                        examples=[
+                            OpenApiExample(
+                                name="Exemplo de resposta de sucesso",
+                                value={},
+                                response_only=True,
+                            ),
+                        ],
+                    ),
+                    401: OpenApiResponse(
+                        description="Usuário não autorizado.",
+                        response=OpenApiTypes.OBJECT,
+                        examples=[
+                            OpenApiExample(
+                                name="Usuário não autorizado",
+                                value={
+                                    "detail": "Authentication credentials were not provided."
+                                },
+                                response_only=True,
+                            ),
+                        ],
+                    ),
+                    404: OpenApiResponse(
+                        description="Usuário não encontrado.",
+                        response=OpenApiTypes.OBJECT,
+                        examples=[
+                            OpenApiExample(
+                                name="Usuário não encontrado",
+                                value={"detail": "Usuário não encontrado."},
+                                response_only=True,
+                            ),
+                        ],
+                    ),
+                },
+            )(cls.delete)
