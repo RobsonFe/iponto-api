@@ -1,4 +1,5 @@
-from rest_framework import generics, permissions
+from turtle import st
+from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from api.model.customuser import CustomUser
 from api.serializers import MasterUserSerializer
@@ -30,13 +31,14 @@ class MasterUserCreateView(MasterUserCreateSwaggerMixin, generics.CreateAPIView)
                         "name": user_data["name"],
                         "email": user_data["email"],
                         "cpf": user_data["cpf"],
+                        "phone": user_data["phone"],
                         "date_joined": user_data["date_joined"],
                         "created_at": user_data["created_at"],
                         "is_superuser": user_data["is_superuser"],
                         "is_master": user_data["is_master"],
                     },
                 },
-                status=201,
+                status=status.HTTP_201_CREATED,
             )
         except Exception as e:
             return Response(

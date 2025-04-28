@@ -1,4 +1,5 @@
-from rest_framework import generics, permissions, filters
+from rest_framework import generics, permissions, filters, status
+from rest_framework.response import Response
 from api import serializers
 from api.model.customuser import CustomUser
 from api.serializers.employee_serializer import EmployeeUserSerializer
@@ -10,6 +11,7 @@ from api.swagger.employee_mixin_swagger import (
     EmployeeUserListSwaggerMixin,
     EmployeeUserUpdateSwaggerMixin,
 )
+from django.db import transaction
 
 
 class EmployeeUserCreateView(EmployeeUserCreateSwaggerMixin, generics.CreateAPIView):
@@ -47,9 +49,34 @@ class EmployeeUserCreateView(EmployeeUserCreateSwaggerMixin, generics.CreateAPIV
                 )
 
         serializer.save()
-
+    @transaction.atomic
     def post(self, request, *args, **kwargs):
-        return super().post(request, *args, **kwargs)
+        try:
+            response = super().post(request, *args, **kwargs)
+            user_data = response.data
+            return Response(
+                {
+                    "message": "Funcionário criado com sucesso",
+                    "result": {
+                        "id": user_data["id"],
+                        "username": user_data["username"],
+                        "name": user_data["name"],
+                        "email": user_data["email"],
+                        "cpf": user_data["cpf"],
+                        "phone": user_data["employee_phone"],
+                        "linkedin": user_data["employee_linkedin"],
+                        "endereco": user_data["employee_endereco"],
+                        "company_id": user_data["employee_company_id"],
+                        "date_joined": user_data["date_joined"],
+                        "created_at": user_data["created_at"],
+                    },
+                },
+                status=status.HTTP_201_CREATED,
+            )
+        except Exception as e:
+            return Response(
+                {"message": "Erro ao criar funcionário", "error": str(e)}, status=400
+            )
 
 
 class EmployeeUserListView(EmployeeUserListSwaggerMixin, generics.ListAPIView):
@@ -96,8 +123,33 @@ class EmployeeUserUpdateView(EmployeeUserUpdateSwaggerMixin, generics.UpdateAPIV
     serializer_class = EmployeeUserSerializer
     permission_classes = [permissions.IsAuthenticated, IsCompanyEmployeeOwnerOrMaster]
 
+    @transaction.atomic
     def patch(self, request, *args, **kwargs):
-        return super().patch(request, *args, **kwargs)
+        try:
+            response = super().patch(request, *args, **kwargs)
+            user_data = response.data
+            return Response(
+                {
+                    "message": "Funcionário atualizado com sucesso",
+                    "result": {
+                        "id": user_data["id"],
+                        "first_name": user_data["first_name"],
+                        "last_name": user_data["last_name"],
+                        "username": user_data["username"],
+                        "name": user_data["name"],
+                        "email": user_data["email"],
+                        "cpf": user_data["cpf"],
+                        "company_id": user_data["company_id"],
+                        "date_joined": user_data["date_joined"],
+                        "created_at": user_data["created_at"],
+                    },
+                },
+                status=status.HTTP_200_OK,
+            )
+        except Exception as e:
+            return Response(
+                {"message": "Erro ao atualizar funcionário", "error": str(e)}, status=400
+            )
 
 
 class EmployeeUserDeleteView(EmployeeUserDeleteSwaggerMixin, generics.DestroyAPIView):

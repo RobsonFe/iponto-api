@@ -67,7 +67,9 @@ class CustomUserManager(BaseUserManager):
         
         # Atribuir último nome (pode ser vazio se o nome tiver apenas uma parte)
         last_name = " ".join(name_parts[1:]) if len(name_parts) > 1 else ""
-        
+        print(f"First name: {first_name}, Last name: {last_name}")
+        print(f"Username: {username}, Email: {email}, CPF: {cpf}, CNPJ: {cnpj}")
+        print(f"Nome completo: {name}")
         email = self.normalize_email(email)
         user = self.model(
             username=username,

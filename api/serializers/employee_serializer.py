@@ -17,6 +17,7 @@ class EmployeeUserSerializer(serializers.ModelSerializer):
     employee_phone = serializers.SerializerMethodField(read_only=True)
     employee_linkedin = serializers.SerializerMethodField(read_only=True)
     employee_endereco = serializers.SerializerMethodField(read_only=True)
+    employee_company_id = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = CustomUser
@@ -27,6 +28,8 @@ class EmployeeUserSerializer(serializers.ModelSerializer):
             "email",
             "name",
             "cpf",
+            "date_joined", 
+            "created_at", 
             "phone",
             "linkedin",
             "endereco",
@@ -35,12 +38,18 @@ class EmployeeUserSerializer(serializers.ModelSerializer):
             "employee_phone",
             "employee_linkedin",
             "employee_endereco",
+            "employee_company_id",
         )
         extra_kwargs = {"password": {"write_only": True}}
 
     def get_employee_id(self, obj):
         if hasattr(obj, "employee_profile"):
             return str(obj.employee_profile.id)
+        return None
+    
+    def get_employee_company_id(self, obj):
+        if hasattr(obj, "employee_profile") and obj.employee_profile.company:
+            return str(obj.employee_profile.company.id)
         return None
     
     def get_employee_phone(self, obj):
